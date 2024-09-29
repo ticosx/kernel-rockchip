@@ -50,3 +50,8 @@ ip link set usb0 up
 
 5. 重启
 sudo reboot
+
+# 其他
+
+DTS 选择：
+uboot set_dtb_name() 根据 ADC5 的值决定 board_rev，从而选择对应的 dts 文件。
