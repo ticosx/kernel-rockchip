@@ -46,7 +46,7 @@ modprobe g_ether
 ip addr add 192.168.7.1/24 dev usb0
 ip link set usb0 up
 
-前面两步可以通过调用 `package.sh` 完成打包，然后将 output 下的打包文件和 deploy.sh 文件拷贝至 U 盘，在目标设备执行 `sudo deploy.sh` 即可。
+前面两步可以通过调用 `package.sh` 完成打包，然后将生成的打包文件和 deploy.sh 文件拷贝至 U 盘，在目标设备执行 `sudo deploy.sh` 即可。
 
 5. 重启
 sudo reboot
