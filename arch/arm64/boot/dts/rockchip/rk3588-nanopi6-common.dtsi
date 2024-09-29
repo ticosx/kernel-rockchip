@@ -687,7 +687,7 @@
 };
 
 &usbdrd_dwc3_0 {
-	dr_mode = "otg";
+	dr_mode = "peripheral";
 	extcon = <&u2phy0>;
 	status = "okay";
 };
