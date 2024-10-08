@@ -51,6 +51,13 @@ ip link set usb0 up
 5. 重启
 sudo reboot
 
+6. 上位机
+如果上位机是 Linux，可能会遇到在 UI 界面配置网络无法工作的问题，可执行下面两条命令：
+```
+sudo ip addr add 192.168.7.2/24 dev usb0
+sudo ip link set usb0 up
+```
+
 # 其他
 
 DTS 选择：
