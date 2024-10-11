@@ -12,12 +12,16 @@ PACKAGE="nanopi_m6.tar.gz"
 TMP_DIR=$(mktemp -d)
 echo "Temp folder: $TMP_DIR"
 
-tar -xzvf $MOUNT_POINT/$PACKAGE -C $TMP_DIR
+# Use current working directory as the mount point
+CURRENT_DIR=$(pwd)
+
+tar -xzvf $CURRENT_DIR/$PACKAGE -C $TMP_DIR
 
 # Deploy kernel
 dd if=$TMP_DIR/resource.img of=/dev/mmcblk2p4 bs=1M
 dd if=$TMP_DIR/kernel.img of=/dev/mmcblk2p5 bs=1M
-cp -r $TMP_DIR/modules /lib/modules/${KERNEL_VER}
+mkdir /lib/modules/6.1.57
+cp -rT $TMP_DIR/modules /lib/modules/6.1.57
 
 # Config the device
 echo -e "\ng_ether" | sudo tee -a /etc/modules > /dev/null

@@ -46,7 +46,7 @@ modprobe g_ether
 ip addr add 192.168.7.1/24 dev usb0
 ip link set usb0 up
 
-前面两步可以通过调用 `package.sh` 完成打包，然后将生成的打包文件和 deploy.sh 文件拷贝至 U 盘，在目标设备执行 `sudo deploy.sh` 即可。
+前面两步可以通过调用 `package.sh` 完成打包，然后将生成的打包文件和 deploy.sh 文件拷贝至 U 盘，在目标设备执行 `sudo bash deploy.sh` 即可。
 
 5. 重启
 sudo reboot
@@ -57,6 +57,23 @@ sudo reboot
 sudo ip addr add 192.168.7.2/24 dev usb0
 sudo ip link set usb0 up
 ```
+或者创建一个 udev 规则文件：/etc/udev/rules.d/90-rndis.rules，内容如下：
+```
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="usb*", NAME=="usb0", RUN+="/usr/local/bin/setup_usb_network.sh"
+```
+然后创建脚本 /usr/local/bin/setup_usb_network.sh，包含：
+```
+#!/bin/bash
+ip addr add 192.168.7.2/24 dev usb0
+ip link set usb0 up
+```
+
+sudo chmod +x /usr/local/bin/setup_usb_network.sh
+
+
+如果 KERNEL=="usb*" 不能准确匹配设备名，可以使用 udevadm info 命令来获取设备属性并调整匹配规则：
+
+udevadm info -a -p /sys/class/net/usb0
 
 # 其他
 
